@@ -106,7 +106,7 @@ def _flatten_palettes(palettes):
     palettes = _merge_palettes(palettes)
     for palette in palettes:
         flat = [i for sub in palettes[palette].values() for i in sub]
-        flattened.update({palette: flat})
+        flattened[palette] = flat
     return flattened
 
 
@@ -115,6 +115,6 @@ def _merge_palettes(palettes):
     unified = {}
     for palette in palettes:
         for item in palettes[palette]:
-            unified.update({item: palettes[palette][item]})
+            unified[item] = palettes[palette][item]
     palettes.update({'all': unified})
     return palettes

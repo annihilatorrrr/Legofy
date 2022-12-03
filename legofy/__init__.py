@@ -62,18 +62,13 @@ def get_new_filename(file_path, ext_override=None):
     base, extention = os.path.splitext(basename)
     if ext_override:
         extention = ext_override
-    new_filename = os.path.join(folder, "{0}_lego{1}".format(base, extention))
-    return new_filename
+    return os.path.join(folder, "{0}_lego{1}".format(base, extention))
 
 
 def get_new_size(base_image, brick_image, size=None):
     '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
     new_size = base_image.size
-    if size:
-        scale_x, scale_y = size, size
-    else:
-        scale_x, scale_y = brick_image.size
-
+    scale_x, scale_y = (size, size) if size else brick_image.size
     if new_size[0] > scale_x or new_size[1] > scale_y:
         if new_size[0] < new_size[1]:
             scale = new_size[1] / scale_y
@@ -113,11 +108,11 @@ def legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
     # Create container for converted images
     frames_converted = []
 
-    print("Number of frames to convert: " + str(len(frames)))
+    print(f"Number of frames to convert: {len(frames)}")
 
     # Iterate through single frames
     for i, frame in enumerate(frames, 1):
-        print("Converting frame number " + str(i))
+        print(f"Converting frame number {str(i)}")
 
         new_size = get_new_size(frame, brick_image, size)
         frame = frame.resize(new_size, Image.ANTIALIAS)

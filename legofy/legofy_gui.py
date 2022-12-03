@@ -11,7 +11,10 @@ class LegofyGui(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.wm_title("Legofy!")
-        self.iconbitmap(os.path.dirname(os.path.realpath(__file__)) + '/assets/brick.ico')
+        self.iconbitmap(
+            f'{os.path.dirname(os.path.realpath(__file__))}/assets/brick.ico'
+        )
+
         self.resizable(False, False)
         self.body = LegofyGuiMainFrame(self)
         self.body.grid(row=0, column=0, padx=10, pady=10)
@@ -52,13 +55,13 @@ class LegofyGuiMainFrame(tk.Frame):
 
     def choose_a_file(self):
 
-        options = {}
-        options['defaultextension'] = '.jpg'
-        options['filetypes'] = [('JPEG', '.jpg'),
-                                ('GIF', '.gif'),
-                                ('PNG', '.png'),]
-        options['initialdir'] = os.path.realpath("\\")
-        options['initialfile'] = ''
+        options = {
+            'defaultextension': '.jpg',
+            'filetypes': [('JPEG', '.jpg'), ('GIF', '.gif'), ('PNG', '.png')],
+            'initialdir': os.path.realpath("\\"),
+            'initialfile': '',
+        }
+
         options['parent'] = self
         options['title'] = 'Choose a file'
 
